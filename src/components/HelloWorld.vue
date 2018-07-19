@@ -37,7 +37,16 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
-  }
+  },
+  methods: {
+    testMethod: function() {
+      return 42;
+    }
+  },
+  created: function() {
+    let realVal = this.testMethod();
+    console.log(realVal);
+  },
 };
 </script>
 

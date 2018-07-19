@@ -1,29 +1,97 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" class="layout">
+    
+    <div class="side-bar">
+      <img src="./assets/laboratory.svg"/>
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="playground">Playground</router-link></li>
+        <li><router-link to="element">Element UI</router-link></li>
+      </ul>
     </div>
-    <router-view/>
+    <div class="content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<style lang="scss" scoped>
+
+  @import url('https://fonts.googleapis.com/css?family=Cinzel');
+  @import url('https://fonts.googleapis.com/css?family=Reem+Kufi');
+
+
+  .layout {
+        display: grid !important;
+        grid-template-columns: 200px 1fr 10%;
+        grid-template-rows: 25px 1fr 75px;
+        font-family: 'Reem Kufi', sans-serif;
+    }
+
+  .nav {
+
+    z-index: 9999;
+    grid-column-start: 1;
+    grid-column-end: span 4;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    background: #6b5b95;
+
+  }
+
+  .side-bar {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-row-end: span 3;
+    background: #231f2f;
+    text-align: center;
+    height: 100vh;
+
+    img {
+      width: 100px;
+      height: auto;
+      margin-top: 2em;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+      li {
+          padding: 1em;
+          text-align: center;
+          //font-weight: 800;
+          a {
+            &:visited {
+              color: white;
+            }
+            &:hover {
+              color: lightgrey;
+            }
+            color: white;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+      }
     }
   }
-}
+   
+  
+
+  .content {
+      grid-column-start: 2;
+      grid-column-end: span 1;
+      grid-row-start: 2;
+      grid-row-end: span 3;
+      padding: 0em 3em;
+  }
+
+  .footer {
+    grid-column-start: 1;
+    grid-column-end: span 4;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+    background: yellow;
+  }
+
 </style>

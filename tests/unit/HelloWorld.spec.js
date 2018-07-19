@@ -1,13 +1,30 @@
 import { expect } from "chai";
-import { shallow } from "@vue/test-utils";
+import sinon from "sinon";
+import { shallow, mount } from "@vue/test-utils";
 import HelloWorld from "@/components/HelloWorld.vue";
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallow(HelloWorld, {
-      propsData: { msg }
+let subject;
+
+async function mountComponent() {
+  subject = mount(HelloWorld, {
+    methods: {
+      testMethod: sinon.stub().returns(12)
+    }
+  });
+}
+
+beforeEach(() => {
+  mountComponent();
+})
+
+describe("HelloWorld.vue", async () => {
+  it("renders props.msg when passed", async () => {
+    await mountComponent().then(() => {
+      const msg = "new message";
+      subject.setProps({ msg: msg });
+      expect(subject.text()).to.include(msg);
+      console.log(subject.vm.testMethod);
+
     });
-    expect(wrapper.text()).to.include(msg);
   });
 });
