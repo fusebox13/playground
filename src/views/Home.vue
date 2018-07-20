@@ -9,7 +9,7 @@
           <li>Getters</li>
           <li>Mutations</li>
           <li>Actions</li>
-          <li>The MapState Helper</li>
+          <li>The Mapping Helper</li>
         </ul>
       </div>
       <div class="right">
