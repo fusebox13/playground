@@ -21,6 +21,7 @@
   @import url('https://fonts.googleapis.com/css?family=Reem+Kufi');
 
 
+
   .layout {
         display: grid !important;
         grid-template-columns: 200px 1fr 10%;
@@ -84,6 +85,8 @@
       grid-row-start: 2;
       grid-row-end: span 3;
       padding: 0em 3em;
+      font-size: 2em;
+
   }
 
   .footer {

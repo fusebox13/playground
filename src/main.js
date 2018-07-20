@@ -5,9 +5,12 @@ import store from "./store";
 import "./registerServiceWorker";
 import Element from 'element-ui';
 import messages from './assets/lang/messages.js';
+import Count from "@/components/Count.vue";
 
 Vue.use(Element);
 Vue.config.productionTip = false;
+
+Vue.component('Count', Count);
 
 //Middleware
 router.beforeEach((to, from, next) => {
@@ -20,5 +23,5 @@ router.beforeEach((to, from, next) => {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");
