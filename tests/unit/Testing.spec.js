@@ -5,7 +5,6 @@ import Vuex from 'vuex';
 import { mount } from '@vue/test-utils';
 import Testing from '@/components/Testing';
 import Element from 'element-ui';
-import { resolve } from 'dns';
 Vue.use(Element);
 
 let subject;
