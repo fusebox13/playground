@@ -135,6 +135,15 @@ export default new Vuex.Store({
     UPDATE_INPUT: (state, input) => {
       state.INPUT = input;
     },
+    STORE: (state, dynamicState) => {
+      if (typeof dynamicState === 'object'){
+        Object.keys(dynamicState)
+        .forEach(dynamicKey => {
+          Vue.set(state, dynamicKey, dynamicState[dynamicKey])
+        });
+      }
+      
+    }
   },
   actions: {
     LOAD_BULLET_POINTS_SERIALIZED_STATE({commit}) {

@@ -85,8 +85,16 @@ export default {
       this.TOGGLE_BULLET_POINTS();
       this.visibilityButton.activeClass = this.visibilityButton.hideBulletPoints ? 'el-icon-view-not-active' : 'el-icon-view-active';
     },
+    ...mapMutations(['STORE']),
     ...mapActions(['TOGGLE_BULLET_POINTS'])
   },
+  created() {
+    this.STORE({
+      dynamic: 'totally dynamic',
+      json: 'not jason',
+      wow: 'much wow!'
+    });
+  }
 };
 </script>
 <style scoped lang="scss">
