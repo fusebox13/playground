@@ -1,9 +1,13 @@
 <template>
     <div id="testing">
         <p>Testing a Vuex Store is fast and easy. There are some caveats, so lets take a look at some code.</p>
-        <p class="small-font">Can we get an army of these monkeys to replace our E2E tests?</p>
+        <div class="centered-text">
+            <p class="small-font">Can we get an army of these monkeys to replace our E2E tests?</p>
+        </div>
         <hr/>
-        <img width="500px" src="/img/testmonkey.jpg"/>
+        <div class="image-container">
+            <img src="/img/testmonkey.jpg"/>
+        </div>
     </div>
 </template>
 
@@ -27,5 +31,12 @@ export default {
     }
     .small-font {
         font-size: 0.75em;
+    }
+    .image-container {
+        display: flex;
+        justify-content: center;
+    }
+    .centered-text {
+        text-align: center;
     }
 </style>
