@@ -1,67 +1,115 @@
 <template>
   <div class="home">
-    <h1>Welcome!</h1>
-    <h3>Today we will be learning about Vuex!</h3>
+      <i @click="onVisibilityIconClicked" :class="[visibilityButton.iconClass, { active: BULLET_POINTS_VISIBLE }]"></i>
+      <h3>Advanced Vuex - Topics:</h3>
     <div class="split-container">
-      <div class="left">
+      <div class="left" v-if="BULLET_POINTS_VISIBLE">
         <ul>
-          <li>State</li>
-          <li>Getters</li>
-          <li>Mutations</li>
-          <li>Actions</li>
-          <li>The Mapping Helper</li>
+          <li>Modules</li>
+          <li>Reactivity</li>
+          <li>Testing</li>
+          <li>Asynchronous Actions</li>
         </ul>
       </div>
-      <div class="right">
-        <Count/>
-        <el-button type="primary" @click="increment">+</el-button>
-        <el-button type="primary" @click="decrement">-</el-button>
-        <DoubleCount/>
-      </div>
     </div>
+    <el-tabs v-if="!BULLET_POINTS_VISIBLE" v-model="activeTabPane" @tab-click="onTabClicked">
+      <el-tab-pane class="tab-pane" :label="tabs.ModulesTab.label" :name="tabs.ModulesTab.name">
+        <Modules/>
+      </el-tab-pane>
+      <el-tab-pane class="tab-pane" :label="tabs.VbindTab.label" :name="tabs.VbindTab.name">
+        <VModel/>
+      </el-tab-pane>
+      <el-tab-pane class="tab-pane" :label="tabs.TestingTab.label" :name="tabs.TestingTab.name">
+        <Testing/>
+      </el-tab-pane>
+      <el-tab-pane class="tab-pane" :label="tabs.AsyncTab.label" :name="tabs.AsyncTab.name">
+        <AsyncActions/>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
+import Modules from '@/components/Modules';
+import VModel from '@/components/VModel';
+import Testing from '@/components/Testing'
+import AsyncActions from '@/components/AsyncActions'
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
-import DoubleCount from "@/components/DoubleCount.vue"
+import axios from 'axios';
+
 export default {
   name: "home",
   components: {
-    DoubleCount
+    Modules,
+    Testing,
+    AsyncActions,
+    VModel
   },
   data: function() {
-    return {}
+    return {
+      visibilityButton: {
+        hideBulletPoints: false,
+        iconClass: 'el-icon-view',
+        activeClass: 'el-icon-view-active'
+      },
+      tabs: {
+        ModulesTab: { key: 1, label: 'Modules', name: 'Modules' },
+        VbindTab: { key: 2, label: 'Reactivity', name: 'VModel' },
+        TestingTab: { key: 3, label: 'Testing', name: 'Testing' },
+        AsyncTab: { key: 4, label: 'Asychronous Actions', name: 'AsyncActions' },
+      }
+    }
   },
   computed: {
-    ...mapState(['COUNT']),
-    ...mapGetters(['DOUBLED_COUNT'])
+    activeTabPane: {
+      get() {
+        return this.$store.state.ACTIVE_TAB;
+      },
+      set(value) {
+        this.$store.commit('UPDATE_ACTIVE_TAB', value)
+      }
+    },
+    getModuleATitle() {
+      return this.$store.state.APP.MODULE_A.NAMESPACE;
+    },
+    getModuleBTitle() {
+      return this.$store.state.APP.MODULE_B.NAMESPACE;
+    },
+    ...mapState(['NAMESPACE', 'BULLET_POINTS_VISIBLE'])
   },
   methods: {
-    increment: function() {
-      //this.$store.commit("INCREMENT_MUTATION");
-      //or
-      //or
-      //this.$store.dispatch("INCREMENT_ACTION");
-      this.INCREMENT_ACTION();
+    onTabClicked() {
     },
-    decrement: function() {
-      //this.$store.commit("DECREMENT_MUTATION", 2);
-      //or
-      //this.$store.dispatch('DECREMENT_ACTION', 2);
-      //or
-      //this.DECREMENT_ACTION(2);
+    onVisibilityIconClicked() {
+      this.visibilityButton.hideBulletPoints = !this.visibilityButton.hideBulletPoints;
+      this.TOGGLE_BULLET_POINTS();
+      this.visibilityButton.activeClass = this.visibilityButton.hideBulletPoints ? 'el-icon-view-not-active' : 'el-icon-view-active';
     },
-    ...mapActions(['INCREMENT_ACTION', 'DECREMENT_ACTION']),
-    ...mapMutations(['INCREMENT_MUTATION'])
-  }
+    ...mapActions(['TOGGLE_BULLET_POINTS'])
+  },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
   .split-container {
     display: flex;
 
   }
+
+  .el-icon-view.active {
+    color: black;
+  }
+
+  .el-icon-view {
+    color: lightgrey;
+    position: fixed;
+    top: 40px;
+    right: 40px;
+  }
+
+  .el-tabs__item {
+      font-size: 21px !important;
+    }
+
   .right {
     padding-left: 2em;
     padding-right: 2em;

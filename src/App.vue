@@ -20,13 +20,17 @@
   @import url('https://fonts.googleapis.com/css?family=Cinzel');
   @import url('https://fonts.googleapis.com/css?family=Reem+Kufi');
 
-
+  html, body {
+    margin: 0px;
+    height: 100%;
+  }
 
   .layout {
         display: grid !important;
         grid-template-columns: 200px 1fr 10%;
         grid-template-rows: 25px 1fr 75px;
         font-family: 'Reem Kufi', sans-serif;
+        height: 100%;
     }
 
   .nav {
@@ -47,7 +51,7 @@
     grid-row-end: span 3;
     background: #231f2f;
     text-align: center;
-    height: 100vh;
+    height: 100%;
 
     img {
       width: 100px;

@@ -5,12 +5,9 @@ import store from "./store";
 import "./registerServiceWorker";
 import Element from 'element-ui';
 import messages from './assets/lang/messages.js';
-import Count from "@/components/Count.vue";
 
 Vue.use(Element);
 Vue.config.productionTip = false;
-
-Vue.component('Count', Count);
 
 //Middleware
 router.beforeEach((to, from, next) => {
@@ -24,4 +21,14 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  methods: {
+    load() {
+      console.log("Loading... from local storage");
+      this.$store.dispatch('LOAD_BULLET_POINTS_SERIALIZED_STATE');
+      this.$store.dispatch('LOAD_ACTIVE_TAB_SERIALIZED_STATE');
+    }
+  },
+  created(){
+    this.load();
+  }
 }).$mount("#app");
